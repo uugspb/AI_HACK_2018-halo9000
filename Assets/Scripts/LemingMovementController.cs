@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using JetBrains.Annotations;
 using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
 
 public enum Killer
@@ -43,8 +45,8 @@ public partial class LemingMovementController : MonoBehaviour
 
 	public string CurrentStateName;
 	private bool jump;
-	public bool isGrounded = false;	
-	public Collider2D HittedCollider;
+	public CollisionSide _collisionSide;	
+	[CanBeNull] public Collider2D HittedCollider;
 	public RaycastHit2D _groundHit;
 	private AudioSource _audioSource;
 	private Killer Killer;
@@ -102,9 +104,18 @@ public partial class LemingMovementController : MonoBehaviour
 		
 		_groundHit = Physics2D.BoxCast(transform.position, _boxCollider2D.size * transform.lossyScale.x, 0, Vector2.down, _groundCollisionVectorLength,
 			CollisitonMask.value);
-		
-		isGrounded = _groundHit.collider != null;
+
 		HittedCollider = _groundHit.collider;
+		if (HittedCollider != null)
+		{
+			Debug.Assert(HittedCollider.transform != null, "HittedCollider.transform != null");
+			var colliderPosition = _groundHit.point;
+			_collisionSide = colliderPosition.y <= transform.position.y ? CollisionSide.Ground : CollisionSide.Cellar;
+		}
+		else
+		{
+			_collisionSide = CollisionSide.None;
+		}
 
 		motion = (input & LemmingMovementDirection.Right) > 0 ? 1 : (input & LemmingMovementDirection.Left) > 0 ? -1 : 0;
 		jump = (input & LemmingMovementDirection.Jump) > 0; 
@@ -119,11 +130,25 @@ public partial class LemingMovementController : MonoBehaviour
 		jump = false;
 	}
 
-	bool IsGrounded()
+	public enum CollisionSide
 	{
-		return isGrounded;
+		None,
+		Ground,
+		Cellar,
+		Left,
+		Right
 	}
 
+	bool IsGrounded()
+	{
+		return _collisionSide == CollisionSide.Ground;
+	}
+
+	bool IsCelled()
+	{
+		return _collisionSide == CollisionSide.Cellar;
+	}
+	
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.yellow;

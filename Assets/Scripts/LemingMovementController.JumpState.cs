@@ -7,7 +7,12 @@ public partial class LemingMovementController
         public JumpState(LemingMovementController controller) : base(controller)
         {
         }
-		
+
+        public override void Start()
+        {
+            _controller._verticalSpeed = _controller.JumpForce;
+        }
+
         public override void Update()
         {			
             _controller._verticalSpeed += Physics2D.gravity.y * Time.fixedDeltaTime;
