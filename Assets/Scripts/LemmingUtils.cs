@@ -10,7 +10,7 @@ namespace DefaultNamespace
             var size = Math.Max(record1.Size, record2.Size);
             var result = new LemmingMovementDirection[size];
             for (var i = 0; i < size; i++)
-                result[i] = random.Next(0, 1) == 0 ? record1[i] : record2[i];
+                result[i] = random.Next(0, 2) == 0 ? record1[i] : record2[i];
             return new LemmingRunRecord(result);
         }
 
