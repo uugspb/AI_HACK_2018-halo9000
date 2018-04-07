@@ -58,8 +58,9 @@ namespace DefaultNamespace
                 _data[(int) (LemmingUtils.GetRandom(random) * Size)] = LemmingUtils.GenerateNextDirection();
         }
 
-        public void MutateLastActions(int killPoint, int numberOfMutations = 30)
+        public void MutateLastActions(int killPoint)
         {
+            var numberOfMutations = new Random().Next(30, 100);
             var mutatePoint = Math.Max(0, killPoint - numberOfMutations + 1);
             Debug.Log(string.Format("Mutate actions from {0} to {1}, remove actions from {2} to {3} "
                 , mutatePoint, killPoint - 1, killPoint, _data.Count - killPoint - 1));
