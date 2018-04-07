@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum GameMode { Play, Pause}
+
 public class HUD : MonoBehaviour {
 
     public GameObject loseWindow;
     public GameObject winWindow;
+    public GameObject pauseWindow;
+    public GameMode gameMode;
 
     static private HUD instance;
 
@@ -21,7 +25,24 @@ public class HUD : MonoBehaviour {
     private void Awake()
     {
         instance = this;
+        gameMode = GameMode.Play;
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gameMode == GameMode.Play)
+            {
+                ShowPauseWindow();
+            }
+            else
+            {
+                HidePauseWindow();
+            }
+        }
+    }
+
 
 
     public void ShowLoseWindow()
@@ -52,5 +73,27 @@ public class HUD : MonoBehaviour {
     public void OnNextClick()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void OnResumeClick()
+    {
+        HidePauseWindow();
+    }
+
+    public void ShowPauseWindow()
+    {
+        pauseWindow.GetComponent<Animator>().SetBool("windowEnabled", true);
+        gameMode = GameMode.Pause;
+    }
+
+    public void HidePauseWindow()
+    {
+        pauseWindow.GetComponent<Animator>().SetBool("windowEnabled", false);
+        gameMode = GameMode.Play;
+    }
+
+    public void OnExitClick()
+    {
+        Application.Quit();
     }
 }
