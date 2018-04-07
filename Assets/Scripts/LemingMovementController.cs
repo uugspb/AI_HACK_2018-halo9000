@@ -84,6 +84,15 @@ public partial class LemingMovementController : MonoBehaviour
 		_audioSource = GetComponent<AudioSource>();
 	}
 
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			Die(Killer.Player);			
+		}
+
+	}
+
 	public void ManualFixedUpdate(LemmingMovementDirection input)
 	{
 		if (this == null)
