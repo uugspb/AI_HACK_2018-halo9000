@@ -27,8 +27,9 @@ public partial class LemingMovementController
         {
         }
 
-        public virtual void Die()
+        public virtual void Die(Killer killer)
         {
+            _controller.Killer = killer;
             _controller.CurrentState = new DeathState(_controller);
         }
 		

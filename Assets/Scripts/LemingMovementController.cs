@@ -5,16 +5,22 @@ using DefaultNamespace;
 using UnityEngine;
 
 
+public enum Killer
+{
+	None, Suicide, Player
+}
 public partial class LemingMovementController : MonoBehaviour
 {
 	
-	public event Action<LemingMovementController> OnDead;
+	public event Action<LemingMovementController, Killer> OnDead;
 
 	private void CallOnDead()
 	{
 		if (OnDead != null)
 		{
-			OnDead(this);
+			var killer = Killer;
+			Killer = Killer.None;
+			OnDead(this, killer);
 		}
 	}
 	
@@ -40,6 +46,7 @@ public partial class LemingMovementController : MonoBehaviour
 	public Collider2D HittedCollider;
 	public RaycastHit2D _groundHit;
 	private AudioSource _audioSource;
+	private Killer Killer;
 
 
 	private ControllerState CurrentState
@@ -115,9 +122,9 @@ public partial class LemingMovementController : MonoBehaviour
 			_audioSource.Play();
 	}
 
-	public void Die()
+	public void Die(Killer killer)
 	{
-		_currentState.Die();
+		_currentState.Die(killer);
 	}
 
 	public void Respawn(Vector3 position)
@@ -130,7 +137,7 @@ public partial class LemingMovementController : MonoBehaviour
 	{
 		if (other.gameObject.tag == "Spike")
 		{
-			Die();
+			Die(Killer.Suicide);
 		}
 			
 	}
