@@ -13,6 +13,7 @@ public partial class LemingMovementController : MonoBehaviour
 {
 	
 	public event Action<LemingMovementController, Killer> OnDead;
+	public event Action<LemingMovementController> OnExit;
 
 	private void CallOnDead()
 	{
@@ -85,6 +86,11 @@ public partial class LemingMovementController : MonoBehaviour
 
 	public void ManualFixedUpdate(LemmingMovementDirection input)
 	{
+		if (this == null)
+		{
+			return;
+		}
+		
 		_groundHit = Physics2D.BoxCast(transform.position, _boxCollider2D.size * transform.lossyScale.x, 0, Vector2.down, _groundCollisionVectorLength,
 			CollisitonMask.value);
 		
@@ -135,6 +141,18 @@ public partial class LemingMovementController : MonoBehaviour
 		{
 			Die(Killer.Suicide);
 		}
-			
+		else if (other.gameObject.tag == "Exit")
+		{
+			OnOnExit();
+			Destroy(gameObject);
+		}
+	}
+
+	protected virtual void OnOnExit()
+	{
+		Debug.Log("--------");
+		var handler = OnExit;
+		if (handler != null) 
+			handler(this);
 	}
 }
