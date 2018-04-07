@@ -3,12 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Flags]
+public enum EInput
+{
+	None = 0, 
+	MoveRigth = 1 << 0, 
+	MoveLeft = 1 << 1, 
+	Jump = 1 << 2
+}
+
+
 public class LemingMovementController : MonoBehaviour
 {
-
 	private ControllerState _currentState;
 	public LayerMask CollisitonMask;
-	
 	
 	private class ControllerState
 	{
@@ -64,7 +72,7 @@ public class LemingMovementController : MonoBehaviour
 		{
 			if (!_controller.isGrounded)
 			{
-				_controller.CurrentStateS = new FallDown(_controller);
+				_controller.CurrentStateS = new JumpState(_controller);
 			}
 		}
 	}
@@ -95,6 +103,10 @@ public class LemingMovementController : MonoBehaviour
 			_controllerRigidbody2D.MovePosition(_controllerRigidbody2D.position +
 			                                    new Vector2(_controller._movementDirection * _controller.Speed,
 				                                    0)); 
+			if (!_controller.isGrounded)
+			{
+				_controller.CurrentStateS = new JumpState(_controller);
+			}
 		}
 		
 		
@@ -110,7 +122,7 @@ public class LemingMovementController : MonoBehaviour
 		{			
 			_controller._verticalSpeed += Physics2D.gravity.y * Time.fixedDeltaTime;
 			_controllerRigidbody2D.MovePosition(
-				_controllerRigidbody2D.position + new Vector2(_controller._movementDirection * _controller.Speed,
+				_controllerRigidbody2D.position + new Vector2(_controller._movementDirection * _controller.AirControllSpeed,
 				                                    _controller._verticalSpeed * Time.fixedDeltaTime));
 
 			if (_controller.IsGrounded())
@@ -118,30 +130,37 @@ public class LemingMovementController : MonoBehaviour
 				_controller.CurrentStateS = new IdleState(_controller);
 			}
 		}
+
+		public override void Move(int direction)
+		{
+			if(direction != 0)
+				_controller._movementDirection = direction;				
+		}
 	}
 	
-	private class FallDown : ControllerState
-	{
-		public FallDown(LemingMovementController controller) : base(controller)
-		{
-		}
-		
-		public override void Update()
-		{			
-			_controller._verticalSpeed += Physics2D.gravity.y * Time.fixedDeltaTime;
-			_controllerRigidbody2D.MovePosition(
-				_controllerRigidbody2D.position + new Vector2(_controller._movementDirection * _controller.Speed,
-					_controller._verticalSpeed * Time.fixedDeltaTime));
-
-			if (_controller.IsGrounded())
-			{
-				_controller.CurrentStateS = new IdleState(_controller);
-			}
-		}
-	}
-
+//	private class FallDown : ControllerState
+//	{
+//		public FallDown(LemingMovementController controller) : base(controller)
+//		{
+//		}
+//		
+//		public override void Update()
+//		{			
+//			_controller._verticalSpeed += Physics2D.gravity.y * Time.fixedDeltaTime;
+//			_controllerRigidbody2D.MovePosition(
+//				_controllerRigidbody2D.position + new Vector2(_controller._movementDirection * _controller.Speed,
+//					_controller._verticalSpeed * Time.fixedDeltaTime));
+//
+//			if (_controller.IsGrounded())
+//			{
+//				_controller.CurrentStateS = new IdleState(_controller);
+//			}
+//		}
+//	}
 
 	public float Speed;
+	public float AirControllSpeed;
+	
 	public float JumpForce;
 	public int motion;
 	private Rigidbody2D _rigidbody2D;
@@ -151,6 +170,10 @@ public class LemingMovementController : MonoBehaviour
 
 	public string CurrentState;
 	private bool jump;
+	public bool isGrounded = false;	
+	public Collider2D HittedCollider;
+	public RaycastHit2D _groundHit;
+
 
 	private ControllerState CurrentStateS
 	{
@@ -158,8 +181,8 @@ public class LemingMovementController : MonoBehaviour
 		set
 		{
 			Debug.LogFormat("{0}->{1}", _currentState, value);
-			
 			_currentState = value;
+			CurrentState = _currentState.GetType().Name;
 		}
 	}
 
@@ -168,33 +191,15 @@ public class LemingMovementController : MonoBehaviour
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 		CurrentStateS = new IdleState(this);
 	}
-	
 
-	private void Update()
+	public void ManualFixedUpdate(int input)
 	{
-
-		CurrentState = CurrentStateS.GetType().Name;
-		
-		
-		var horizontal = Input.GetAxis("Horizontal");
-		motion = horizontal > 0 ? 1 : horizontal < 0 ? -1 : motion;
-
-
-		var vertical = Input.GetAxis("Vertical");
-		jump = vertical > 0;
-	}
-
-
-	public bool isGrounded = false;
-		
-	public Collider2D HittedCollider;
-	public RaycastHit2D _groundHit;
-
-	private void FixedUpdate()
-	{
-		_groundHit = Physics2D.Raycast(_rigidbody2D.position, Vector2.down, _groundCollisionVectorLength, CollisitonMask.value);
+		_groundHit = Physics2D.Raycast(transform.position, Vector2.down, _groundCollisionVectorLength, CollisitonMask.value);
 		isGrounded = _groundHit.collider != null;
 		HittedCollider = _groundHit.collider;
+
+		motion = (input & (int) EInput.MoveRigth) > 0 ? 1 : (input & (int) EInput.MoveLeft) > 0 ? -1 : 0;
+		jump = (input & (int) EInput.Jump) > 0; 
 		
 		CurrentStateS.Move(motion);
 		if(jump)
@@ -204,9 +209,6 @@ public class LemingMovementController : MonoBehaviour
 
 		motion = 0;
 		jump = false;
-
-
-
 	}
 
 	bool IsGrounded()
