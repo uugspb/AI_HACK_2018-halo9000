@@ -21,7 +21,6 @@ public partial class LemingMovementController
         {
             _controller._verticalSpeed = _controller.JumpForce;
             _controller.CurrentState = new JumpState(_controller);
-            _controller.OnJump();
         }
 
         public override void Update()
