@@ -11,6 +11,7 @@ public enum Killer
 }
 public partial class LemingMovementController : MonoBehaviour
 {
+    public Animator LemingAnimator;
 	
 	public event Action<LemingMovementController, Killer> OnDead;
 	public event Action<LemingMovementController> OnExit;
@@ -79,6 +80,7 @@ public partial class LemingMovementController : MonoBehaviour
 
 	private void Awake()
 	{
+        LemingAnimator = GetComponent<Animator>();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 		CurrentState = new SpawnState(this);
 		_audioSource = GetComponent<AudioSource>();
