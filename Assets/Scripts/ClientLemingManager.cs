@@ -1,5 +1,4 @@
-﻿using System.Runtime.Serialization.Formatters;
-using DefaultNamespace;
+﻿using DefaultNamespace;
 using UnityEngine;
 
 public class ClientLemingManager : MonoBehaviour
@@ -20,6 +19,14 @@ public class ClientLemingManager : MonoBehaviour
     private void Awake()
     {
         Record = new LemmingRunRecord();
+
+        if (Leming == null)
+        {
+            Leming = FindObjectOfType<LemingMovementController>();
+        }
+
+        Leming.Record = Record;
+
         SpawnPosition = Leming.transform.position;
     }
 
@@ -27,41 +34,60 @@ public class ClientLemingManager : MonoBehaviour
 
     private void Update()
     {
+        KillLemmingsOnMouseClick();
+
         if (Input.GetKeyDown(KeyCode.Space))
             Leming.transform.position = SpawnPosition;
 
 
-       
-            _input = 0;
-            var horizontal = Input.GetAxis("Horizontal");
-            _input |= ((horizontal > 0)
-                ? LemmingMovementDirection.Right
-                : horizontal < 0
-                    ? LemmingMovementDirection.Left
-                    : LemmingMovementDirection.None);
-            var vertical = Input.GetAxis("Vertical");
-            _input |= (vertical > 0 ? LemmingMovementDirection.Jump : LemmingMovementDirection.None);
+        _input = 0;
+        var horizontal = Input.GetAxis("Horizontal");
+        _input |= ((horizontal > 0)
+            ? LemmingMovementDirection.Right
+            : horizontal < 0
+                ? LemmingMovementDirection.Left
+                : LemmingMovementDirection.None);
+        var vertical = Input.GetAxis("Vertical");
+        _input |= (vertical > 0 ? LemmingMovementDirection.Jump : LemmingMovementDirection.None);
+    }
 
-           
+    private void KillLemmingsOnMouseClick()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var hitedCount = Physics2D.RaycastNonAlloc(ray.origin, ray.direction, _raycastResults, Mathf.Infinity);
+            if (hitedCount > 0)
+            {
+                for (var i = 0; i < hitedCount; i++)
+                {
+                    var colliderGameObject = _raycastResults[i].collider.gameObject;
+                    var lemingMovementController = colliderGameObject.GetComponent<LemingMovementController>();
+                    if (lemingMovementController != null)
+                    {
+                        lemingMovementController.Die();
+                        lemingMovementController.Respawn(SpawnPosition);
+                    }
+                }
+            }
+        }
     }
 
 
     public bool Save;
     public int SimualtionFrameId = 0;
+    private RaycastHit2D[] _raycastResults = new RaycastHit2D[100];
 
     private void FixedUpdate()
     {
         if (Simulate)
         {
-           _input = RecordsStorage.Records[RecordID].GetOrGenerateNextMovement(SimualtionFrameId++);
+            _input = RecordsStorage.Records[RecordID].GetOrGenerateNextMovement(SimualtionFrameId++);
         }
         else if (RecordRun)
             Record.AddMovement(_input);
 
-
         Leming.ManualFixedUpdate(_input);
-        
-        
         if (Save)
         {
             Save = false;

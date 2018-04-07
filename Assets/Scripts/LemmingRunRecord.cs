@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 namespace DefaultNamespace
 {
@@ -42,6 +43,20 @@ namespace DefaultNamespace
         {
             get { return _data[index]; }
             set { _data[index] = value; }
+        }
+        
+        public void Mutate(double mutationRatio = 0.1)
+        {
+            var numberOfMutations = (int) (Size * mutationRatio);
+            var random = new Random();
+            for (var i = 0; i < numberOfMutations; i++)
+                _data[(int) (LemmingUtils.GetRandom(random) * Size)] = LemmingUtils.GenerateNextDirection();
+        }
+
+        public void MutateLastActions(int numberOfMutations = 20)
+        {
+            for (var i = _data.Count - 1; i >= 0 && i >= _data.Count - numberOfMutations; i--)
+                _data[i] = LemmingUtils.GenerateNextDirection();
         }
     }
 }

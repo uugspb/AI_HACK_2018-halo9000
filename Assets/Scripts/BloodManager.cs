@@ -32,8 +32,7 @@ public class BloodManager : MonoBehaviour {
     }
 
     void Update () {
-		
-        if (Input.GetMouseButtonDown(0))
+        if (HUD.gameMode == GameMode.Play && Input.GetMouseButtonDown(0))
         {
             Vector3 killPoint = Input.mousePosition;
             killPoint = Camera.main.ScreenToWorldPoint(killPoint);
@@ -45,6 +44,7 @@ public class BloodManager : MonoBehaviour {
 
     public void SpawnGrave(Vector3 killPoint)
     {
+        killPoint.z = 1;
         int layer = 1 << LayerMask.NameToLayer("Default");
         var hit = Physics2D.Raycast(killPoint, Vector2.down, maxDistGrave, layer);
         if (hit.collider != null)

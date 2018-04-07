@@ -168,7 +168,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: de38026a41105c9468f8fb6093ae49f9, type: 3}
+    m_Font: {fileID: 12800000, guid: f1d2751c1a4b146209e177281ba4826b, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: de38026a41105c9468f8fb6093ae49f9, type: 3}
+    m_Font: {fileID: 12800000, guid: f1d2751c1a4b146209e177281ba4826b, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
@@ -296,7 +296,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 700, y: 500}
+  m_SizeDelta: {x: 600, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &315554024
 MonoBehaviour:
@@ -317,9 +317,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 92308a7d7d54219428e7b5d008b93bd1, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: 1589cc63d8a2b44a7ab8a905377ef764, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -394,10 +394,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 056537def88422341a9533b72d926a76,
+    m_HighlightedSprite: {fileID: 21300000, guid: dc8b7f89bf743407ebcaaa7594035a79,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 6bec101b8780e774fb02d097dea26f8c, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 2e106f4db8184814da13f45b6a2f0792, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 77de22fe98bd044eca42b2c84557d974, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: dc8b7f89bf743407ebcaaa7594035a79, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -429,8 +429,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 2e106f4db8184814da13f45b6a2f0792, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: dc8b7f89bf743407ebcaaa7594035a79, type: 3}
+  m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -497,7 +497,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e58daef5d8e6325438b5984bb3381161, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 070614d2515a20c4ab05b53a140b51a6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -566,7 +566,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: de38026a41105c9468f8fb6093ae49f9, type: 3}
+    m_Font: {fileID: 12800000, guid: f1d2751c1a4b146209e177281ba4826b, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
@@ -817,10 +817,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 056537def88422341a9533b72d926a76,
+    m_HighlightedSprite: {fileID: 21300000, guid: dc8b7f89bf743407ebcaaa7594035a79,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 6bec101b8780e774fb02d097dea26f8c, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 2e106f4db8184814da13f45b6a2f0792, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 77de22fe98bd044eca42b2c84557d974, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: dc8b7f89bf743407ebcaaa7594035a79, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -863,8 +863,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 2e106f4db8184814da13f45b6a2f0792, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: dc8b7f89bf743407ebcaaa7594035a79, type: 3}
+  m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -940,10 +940,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 056537def88422341a9533b72d926a76,
+    m_HighlightedSprite: {fileID: 21300000, guid: dc8b7f89bf743407ebcaaa7594035a79,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 6bec101b8780e774fb02d097dea26f8c, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 2e106f4db8184814da13f45b6a2f0792, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 77de22fe98bd044eca42b2c84557d974, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: dc8b7f89bf743407ebcaaa7594035a79, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -986,8 +986,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 2e106f4db8184814da13f45b6a2f0792, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: dc8b7f89bf743407ebcaaa7594035a79, type: 3}
+  m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1055,7 +1055,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: de38026a41105c9468f8fb6093ae49f9, type: 3}
+    m_Font: {fileID: 12800000, guid: f1d2751c1a4b146209e177281ba4826b, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
@@ -1175,7 +1175,7 @@ GameObject:
   - component: {fileID: 2019111426}
   - component: {fileID: 2019111425}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1200,7 +1200,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -20}
-  m_SizeDelta: {x: 500, y: 350}
+  m_SizeDelta: {x: 600, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2019111425
 MonoBehaviour:
@@ -1219,7 +1219,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 0
+  m_Spacing: 30
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -1290,7 +1290,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 242}
+  m_AnchoredPosition: {x: 0, y: 280}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2055513484
@@ -1312,7 +1312,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ab4196e3e5a58ca41b422598016b6058, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1920d39e537d44fe38d2ba2e4d34ce95, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

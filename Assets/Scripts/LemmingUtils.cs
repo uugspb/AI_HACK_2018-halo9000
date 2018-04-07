@@ -14,14 +14,6 @@ namespace DefaultNamespace
             return new LemmingRunRecord(result);
         }
 
-        public static void Mutate(this LemmingRunRecord record, double mutationRatio = 0.1)
-        {
-            var numberOfMutations = (int) (record.Size * mutationRatio);
-            var random = new Random();
-            for (var i = 0; i < numberOfMutations; i++)
-                record[(int) (GetRandom(random) * record.Size)] = GenerateNextDirection();
-        }
-
         public static double GetRandom(Random random)
         {
             var num = random.NextDouble();
@@ -31,7 +23,8 @@ namespace DefaultNamespace
         public static LemmingMovementDirection GenerateNextDirection()
         {
             var random = new Random();
-            return (LemmingMovementDirection)random.Next(0, 8);
+            return (random.Next(0, 2) == 0 ? LemmingMovementDirection.Jump : LemmingMovementDirection.None) |
+                   (random.Next(0, 2) == 0 ? LemmingMovementDirection.Right : LemmingMovementDirection.None);
         }
     }
 }
