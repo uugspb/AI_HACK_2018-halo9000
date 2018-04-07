@@ -11,4 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7faf53a9524432a914bcdecbac6162a, type: 3}
   m_Name: LemingRecordsStorage
   m_EditorClassIdentifier: 
-  Records: []
+  Records:
+  - _data: 
