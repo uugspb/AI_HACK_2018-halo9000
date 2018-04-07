@@ -18,15 +18,14 @@
 		
         public override void Jump()
         {
-            _controller._verticalSpeed = _controller.JumpForce;
             _controller.CurrentState = new JumpState(_controller);
         }
 
         public override void Update()
         {
-            if (!_controller.isGrounded)
+            if (!_controller.IsGrounded())
             {
-                _controller.CurrentState = new JumpState(_controller);
+                _controller.CurrentState = new FalldownState(_controller);
             }
         }
     }

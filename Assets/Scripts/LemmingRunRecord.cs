@@ -23,8 +23,13 @@ namespace DefaultNamespace
 
         public LemmingMovementDirection GetOrGenerateNextMovement(int currentStep)
         {
-            if(_data.Count <= currentStep)  
-                _data.Add(LemmingUtils.GenerateNextDirection());
+            if (_data.Count <= currentStep)
+            {
+                while (_data.Count <= currentStep)
+                {
+                    _data.Add(LemmingUtils.GenerateNextDirection());    
+                }
+            }
 
             return _data[currentStep];
         }
@@ -53,13 +58,19 @@ namespace DefaultNamespace
                 _data[(int) (LemmingUtils.GetRandom(random) * Size)] = LemmingUtils.GenerateNextDirection();
         }
 
-        public void MutateLastActions(int killPoint, int numberOfMutations = 30)
+        public void MutateLastActions(int killPoint)
         {
+            var numberOfMutations = new Random().Next(30, 100);
             var mutatePoint = Math.Max(0, killPoint - numberOfMutations + 1);
-            Debug.Log(string.Format("Mutate actions from {0} to {1}, remove actions from {2} to {3} ", mutatePoint, killPoint - 1, killPoint, _data.Count - 1));
-            _data.RemoveRange(killPoint, _data.Count - killPoint);
-            for (var i = mutatePoint; i < killPoint; i++)
-                _data[i] = LemmingUtils.GenerateNextDirection();
+            Debug.Log(string.Format("Mutate actions from {0} to {1}, remove actions from {2} to {3} "
+                , mutatePoint, killPoint - 1, killPoint, _data.Count - killPoint - 1));
+            
+            if(killPoint != _data.Count)
+            {
+                _data.RemoveRange(killPoint, _data.Count - killPoint - 1);
+                for (var i = mutatePoint; i < killPoint; i++)
+                    _data[i] = LemmingUtils.GenerateNextDirection();
+            }
         }
     }
 }

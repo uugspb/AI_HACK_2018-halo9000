@@ -18,7 +18,8 @@ public class ClientLemingManager : MonoBehaviour
 
     private void Awake()
     {
-        Record = RecordsStorage.Records[RecordID];
+        Record = RecordsStorage.GetNewRecord();
+        //[RecordID];
 
         if (Leming == null)
         {
@@ -30,7 +31,7 @@ public class ClientLemingManager : MonoBehaviour
             
             BloodManager.instance.ShowKillEffect(controller.transform.position);
             Record.MutateLastActions(SimualtionFrameId);
-            Record.Mutate();
+//            Record.Mutate();
             if(killer == Killer.Player)
                 BloodManager.instance.SpawnGrave(controller.transform.position);
             SimualtionFrameId = 0;
@@ -91,16 +92,16 @@ public class ClientLemingManager : MonoBehaviour
     {
         if (Simulate)
         {
-            _input = RecordsStorage.Records[RecordID].GetOrGenerateNextMovement(SimualtionFrameId++);
+            _input = Record.GetOrGenerateNextMovement(SimualtionFrameId++);
         }
         else if (RecordRun)
             Record.AddMovement(_input);
 
         Leming.ManualFixedUpdate(_input);
-        if (Save)
-        {
-            Save = false;
-            RecordsStorage.Records.Add(Record);
-        }
+//        if (Save)
+//        {
+//            Save = false;
+//            RecordsStorage.Records.Add(Record);
+//        }
     }
 }

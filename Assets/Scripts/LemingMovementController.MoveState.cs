@@ -19,7 +19,6 @@ public partial class LemingMovementController
 
         public override void Jump()
         {
-            _controller._verticalSpeed = _controller.JumpForce;
             _controller.CurrentState = new JumpState(_controller);
         }
 
@@ -28,12 +27,10 @@ public partial class LemingMovementController
             _controllerRigidbody2D.MovePosition(_controllerRigidbody2D.position +
                                                 new Vector2(_controller._movementDirection * _controller.Speed,
                                                     0)); 
-            if (!_controller.isGrounded)
+            if (!_controller.IsGrounded())
             {
-                _controller.CurrentState = new JumpState(_controller);
+                _controller.CurrentState = new FalldownState(_controller);
             }
         }
-		
-		
     }
 }
