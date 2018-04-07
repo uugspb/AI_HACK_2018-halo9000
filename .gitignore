@@ -16,3 +16,4 @@
 *.sublime-workspace
 /build/
 /build_/
+/.idea/

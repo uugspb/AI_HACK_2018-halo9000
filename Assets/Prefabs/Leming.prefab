@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212393810076007478}
   - component: {fileID: 70226198530425786}
   - component: {fileID: 50188348252249504}
+  - component: {fileID: 114508911802577782}
   m_Layer: 8
   m_Name: Leming
   m_TagString: Untagged
@@ -36,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1014139556932060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.919, y: 2.133, z: 0}
-  m_LocalScale: {x: 0.39937302, y: 0.41943273, z: 1}
+  m_LocalPosition: {x: 1.02, y: 3.48, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -61,7 +62,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &70226198530425786
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -75,8 +76,31 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 4.3, y: 5.19}
+  m_Size: {x: 4.19, y: 7.44}
   m_Direction: 0
+--- !u!114 &114508911802577782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1014139556932060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 524918001ab53474d936f02a9f444916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisitonMask:
+    serializedVersion: 2
+    m_Bits: 1
+  Speed: 0.01
+  JumpForce: 15
+  motion: 0
+  _movementDirection: 0
+  _verticalSpeed: 0
+  _groundCollisionVectorLength: 0.51
+  CurrentState: 
+  isGrounded: 0
+  HittedCollider: {fileID: 0}
 --- !u!212 &212393810076007478
 SpriteRenderer:
   m_ObjectHideFlags: 1
