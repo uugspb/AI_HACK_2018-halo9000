@@ -5,202 +5,29 @@ using DefaultNamespace;
 using UnityEngine;
 
 
-public class LemingMovementController : MonoBehaviour
+public enum Killer
+{
+	None, Suicide, Player
+}
+public partial class LemingMovementController : MonoBehaviour
 {
 	
-	public event Action<LemingMovementController> OnDead;
+	public event Action<LemingMovementController, Killer> OnDead;
 
 	private void CallOnDead()
 	{
 		if (OnDead != null)
 		{
-			OnDead(this);
+			var killer = Killer;
+			Killer = Killer.None;
+			OnDead(this, killer);
 		}
 	}
 	
 	
 	private ControllerState _currentState;
 	public LayerMask CollisitonMask;
-	public LemmingRunRecord Record;
-	
-	private class ControllerState
-	{
-		protected readonly LemingMovementController _controller;
-		protected readonly Rigidbody2D _controllerRigidbody2D;
-		
 
-		public ControllerState(LemingMovementController controller)
-		{
-			_controller = controller;
-			_controllerRigidbody2D = _controller._rigidbody2D;
-		}
-
-		public virtual void Update()
-		{
-		}
-
-		public virtual void Move(int direction)
-		{
-			
-		}
-
-		public virtual void Jump()
-		{
-		}
-
-		public virtual void Die()
-		{
-			_controller.CurrentState = new DeathState(_controller);
-		}
-		
-		
-		public virtual void Start()
-		{}
-		
-		public virtual void End()
-		{}
-
-	}
-
-	private class SpawnState : ControllerState
-	{
-		public SpawnState(LemingMovementController controller) : base(controller)
-		{
-		}
-
-		public override void Start()
-		{
-			_controller._verticalSpeed = 0;
-		}
-
-		public override void Update()
-		{			
-			_controller._verticalSpeed += Physics2D.gravity.y * Time.fixedDeltaTime;
-			_controllerRigidbody2D.MovePosition(
-				_controllerRigidbody2D.position + new Vector2(_controller._movementDirection * _controller.AirControllSpeed,
-					_controller._verticalSpeed * Time.fixedDeltaTime));
-
-			if (_controller.IsGrounded())
-			{
-				_controller.CurrentState = new IdleState(_controller);
-			}
-		}
-		
-	}
-
-
-	private class IdleState : ControllerState
-	{
-		public IdleState(LemingMovementController controller) : base(controller)
-		{
-		}
-
-		public override void Move(int direction)
-		{
-			if (direction != 0)
-			{
-				_controller.CurrentState = new MoveState(_controller);
-				
-			}
-			_controller._movementDirection = direction;
-		}
-		
-		public override void Jump()
-		{
-			_controller._verticalSpeed = _controller.JumpForce;
-			_controller.CurrentState = new JumpState(_controller);
-			_controller.OnJump();
-		}
-
-		public override void Update()
-		{
-			if (!_controller.isGrounded)
-			{
-				_controller.CurrentState = new JumpState(_controller);
-			}
-		}
-	}
-	
-	private class MoveState : ControllerState
-	{
-		public MoveState(LemingMovementController controller) : base(controller)
-		{
-		}
-
-		public override void Move(int direction)
-		{
-			if (direction == 0)
-			{
-				_controller.CurrentState = new IdleState(_controller);
-			}
-			_controller._movementDirection = direction;				
-		}
-
-		public override void Jump()
-		{
-			_controller._verticalSpeed = _controller.JumpForce;
-			_controller.CurrentState = new JumpState(_controller);
-			_controller.OnJump();
-		}
-
-		public override void Update()
-		{
-			_controllerRigidbody2D.MovePosition(_controllerRigidbody2D.position +
-			                                    new Vector2(_controller._movementDirection * _controller.Speed,
-				                                    0)); 
-			if (!_controller.isGrounded)
-			{
-				_controller.CurrentState = new JumpState(_controller);
-			}
-		}
-		
-		
-	}
-	
-	private class JumpState : ControllerState
-	{
-		public JumpState(LemingMovementController controller) : base(controller)
-		{
-		}
-		
-		public override void Update()
-		{			
-			_controller._verticalSpeed += Physics2D.gravity.y * Time.fixedDeltaTime;
-			_controllerRigidbody2D.MovePosition(
-				_controllerRigidbody2D.position + new Vector2(_controller._movementDirection * _controller.AirControllSpeed,
-				                                    _controller._verticalSpeed * Time.fixedDeltaTime));
-
-			if (_controller.IsGrounded())
-			{
-				_controller.CurrentState = new IdleState(_controller);
-			}
-		}
-
-		public override void Move(int direction)
-		{
-			if(direction != 0)
-				_controller._movementDirection = direction;				
-		}
-
-		public override void End()
-		{
-			_controller._verticalSpeed = 0;
-		}
-	}
-	
-	private class DeathState : ControllerState
-	{
-		public DeathState(LemingMovementController controller) : base(controller)
-		{
-		}
-
-		public override void Start()
-		{
-			_controller._movementDirection = 0;
-			_controller._verticalSpeed = 0;
-			_controller.motion = 0;
-		}
-	}
 
 	public float Speed;
 	public float AirControllSpeed;
@@ -219,6 +46,7 @@ public class LemingMovementController : MonoBehaviour
 	public Collider2D HittedCollider;
 	public RaycastHit2D _groundHit;
 	private AudioSource _audioSource;
+	private Killer Killer;
 
 
 	private ControllerState CurrentState
@@ -294,24 +122,22 @@ public class LemingMovementController : MonoBehaviour
 			_audioSource.Play();
 	}
 
-	public void Die()
+	public void Die(Killer killer)
 	{
-		_currentState.Die();
+		_currentState.Die(killer);
 	}
 
 	public void Respawn(Vector3 position)
 	{
 		transform.position = position;
 		_currentState = new SpawnState(this);
-		if (Record != null)
-			Record.MutateLastActions();
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.gameObject.tag == "Spike")
 		{
-			Die();
+			Die(Killer.Suicide);
 		}
 			
 	}

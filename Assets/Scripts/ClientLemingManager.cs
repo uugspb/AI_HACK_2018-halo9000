@@ -18,19 +18,23 @@ public class ClientLemingManager : MonoBehaviour
 
     private void Awake()
     {
-        Record = new LemmingRunRecord();
+        Record = RecordsStorage.Records[RecordID];
 
         if (Leming == null)
         {
             Leming = FindObjectOfType<LemingMovementController>();
         }
 
-        Leming.OnDead += controller =>
+        Leming.OnDead += (controller, killer) =>
         {
+            
             BloodManager.instance.ShowKillEffect(controller.transform.position);
+            if(killer == Killer.Player)
+                BloodManager.instance.SpawnGrave(controller.transform.position);
+            RecordsStorage.Records[RecordID].MutateLastActions(SimualtionFrameId);
+            SimualtionFrameId = 0;
             controller.Respawn(SpawnPosition);
         };
-        Leming.Record = Record;
 
         SpawnPosition = Leming.transform.position;
     }
@@ -70,7 +74,7 @@ public class ClientLemingManager : MonoBehaviour
                     var lemingMovementController = colliderGameObject.GetComponent<LemingMovementController>();
                     if (lemingMovementController != null)
                     {
-                        lemingMovementController.Die();
+                        lemingMovementController.Die(Killer.Player);
                     }
                 }
             }
