@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using JetBrains.Annotations;
 using UnityEngine;
-using Debug = System.Diagnostics.Debug;
-
 
 public enum Killer
 {
@@ -13,6 +11,7 @@ public enum Killer
 }
 public partial class LemingMovementController : MonoBehaviour
 {
+    public Animator LemingAnimator;
 	
 	public event Action<LemingMovementController, Killer> OnDead;
 	public event Action<LemingMovementController> OnExit;
@@ -81,6 +80,7 @@ public partial class LemingMovementController : MonoBehaviour
 
 	private void Awake()
 	{
+        LemingAnimator = GetComponent<Animator>();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 		CurrentState = new SpawnState(this);
 		_audioSource = GetComponent<AudioSource>();
@@ -108,7 +108,6 @@ public partial class LemingMovementController : MonoBehaviour
 		HittedCollider = _groundHit.collider;
 		if (HittedCollider != null)
 		{
-			Debug.Assert(HittedCollider.transform != null, "HittedCollider.transform != null");
 			var colliderPosition = _groundHit.point;
 			_collisionSide = colliderPosition.y <= transform.position.y ? CollisionSide.Ground : CollisionSide.Ceiling;
 		}

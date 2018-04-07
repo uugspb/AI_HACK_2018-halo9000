@@ -23,7 +23,12 @@ GameObject:
   - component: {fileID: 50188348252249504}
   - component: {fileID: 114508911802577782}
   - component: {fileID: 61273874278130296}
+<<<<<<< HEAD
+  - component: {fileID: 82566468633146360}
+  - component: {fileID: 95478062694525890}
+=======
   - component: {fileID: 82053783504420968}
+>>>>>>> 3d1ad6378083817f33c16aebd079604828864cbb
   m_Layer: 8
   m_Name: Leming
   m_TagString: Untagged
@@ -54,7 +59,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1014139556932060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
+  m_LocalPosition: {x: -10.41, y: 9.26, z: 0}
+=======
   m_LocalPosition: {x: 4.56, y: 0.67, z: 0}
+>>>>>>> 3d1ad6378083817f33c16aebd079604828864cbb
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children:
   - {fileID: 4605220622485320}
@@ -119,7 +128,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 4}
   m_EdgeRadius: 0
+<<<<<<< HEAD
+--- !u!82 &82566468633146360
+=======
 --- !u!82 &82053783504420968
+>>>>>>> 3d1ad6378083817f33c16aebd079604828864cbb
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -199,6 +212,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+<<<<<<< HEAD
+--- !u!95 &95478062694525890
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1014139556932060}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5c7650a33742494448dea21934959b89, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+=======
 --- !u!114 &114298194155864974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -221,6 +253,7 @@ MonoBehaviour:
   RecordID: 0
   Save: 0
   SimualtionFrameId: 0
+>>>>>>> 3d1ad6378083817f33c16aebd079604828864cbb
 --- !u!114 &114508911802577782
 MonoBehaviour:
   m_ObjectHideFlags: 1

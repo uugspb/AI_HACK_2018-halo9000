@@ -1118,10 +1118,16 @@ Prefab:
       propertyPath: m_Name
       value: Leming2
       objectReference: {fileID: 0}
+<<<<<<< HEAD
+    - target: {fileID: 1014139556932060, guid: 2fa8681d50b6147c7842ded29366bd7b, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+=======
     - target: {fileID: 82053783504420968, guid: 2fa8681d50b6147c7842ded29366bd7b,
         type: 2}
       propertyPath: MinDistance
       value: 3.035431
+>>>>>>> 3d1ad6378083817f33c16aebd079604828864cbb
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2fa8681d50b6147c7842ded29366bd7b, type: 2}
@@ -1289,6 +1295,20 @@ AudioSource:
     - serializedVersion: 2
       time: 0
       value: 1
+<<<<<<< HEAD
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798074108545802, guid: b8a91569f2cd84a5e9447abed4817eb8, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543343819368560, guid: b8a91569f2cd84a5e9447abed4817eb8, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 65189890430101128, guid: b8a91569f2cd84a5e9447abed4817eb8, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: b8a91569f2cd84a5e9447abed4817eb8, type: 2}
+=======
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1476,6 +1496,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2fa8681d50b6147c7842ded29366bd7b, type: 2}
+>>>>>>> 3d1ad6378083817f33c16aebd079604828864cbb
   m_IsPrefabParent: 0
 --- !u!1 &1328360707
 GameObject:
