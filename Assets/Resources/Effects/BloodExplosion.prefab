@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4954250801408250}
   - component: {fileID: 198678561473508518}
   - component: {fileID: 199282743667024490}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2724,7 +2724,7 @@ ParticleSystem:
     quality: 0
     voxelSize: 0.5
     collisionMessages: 0
-    collidesWithDynamic: 1
+    collidesWithDynamic: 0
     interiorCollisions: 0
   TriggerModule:
     enabled: 0

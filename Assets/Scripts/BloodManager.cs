@@ -8,14 +8,20 @@ public class BloodManager : MonoBehaviour {
     [SerializeField]
     private Sprite[] _bloods;
 
+    [SerializeField]
+    private GameObject[] _graves;
+
     float maxDist = 3f;
+    float maxDistGrave = 5f;
     float explosionTtl = 5f;
     int bloodsPerExplosion = 3;
     int maxBloods = 100;
+    int maxGraves = 100;
 
     private GameObject _bloodExplosionPrefab;
 
     List<GameObject> _bloodObjects = new List<GameObject>();
+    List<GameObject> _graveObjects = new List<GameObject>();
 
     public static BloodManager instance;
 
@@ -33,8 +39,33 @@ public class BloodManager : MonoBehaviour {
             killPoint = Camera.main.ScreenToWorldPoint(killPoint);
             killPoint.z = -1;
             ShowKillEffect(killPoint);
+            SpawnGrave(killPoint);
         }
 	}
+
+    public void SpawnGrave(Vector3 killPoint)
+    {
+        int layer = 1 << LayerMask.NameToLayer("Default");
+        var hit = Physics2D.Raycast(killPoint, Vector2.down, maxDistGrave, layer);
+        if (hit.collider != null)
+        {
+            GameObject grave = Instantiate<GameObject>(_graves[Random.Range(0, _graves.Length)], killPoint, Quaternion.identity);
+            Collider2D collider = grave.GetComponentInChildren<Collider2D>();
+            collider.enabled = false;
+            _graveObjects.Add(grave);
+            if (_graveObjects.Count > maxGraves)
+            {
+                Destroy(_graveObjects[0]);
+                _graveObjects.RemoveAt(0);
+            }
+
+            SpriteRenderer sprite = grave.GetComponentInChildren<SpriteRenderer>();
+            sprite.color = new Color(1, 1, 1, 0);
+            sprite.DOFade(1, 1);
+            grave.transform.DOMoveY(hit.point.y, 2).SetEase(Ease.OutBounce).
+                OnComplete(() => collider.enabled = true);
+        }
+    }
 
 
     public void ShowKillEffect(Vector3 killPoint)
@@ -49,7 +80,7 @@ public class BloodManager : MonoBehaviour {
     void SpawnMeats(Vector3 killPoint)
     {
         Vector2 dir = Random.insideUnitCircle.normalized;
-        int layer = 1 << LayerMask.NameToLayer("Default");
+        int layer = LayerMask.GetMask("Default", "Grave");
         var hit = Physics2D.Raycast(killPoint, dir, maxDist, layer);
         if (hit.collider != null)
         {
