@@ -94,7 +94,7 @@ MonoBehaviour:
     m_Bits: 1
   Speed: 0.1
   AirControllSpeed: 0.05
-  JumpForce: 10
+  JumpForce: 9
   motion: 0
   _movementDirection: 0
   _verticalSpeed: 0
