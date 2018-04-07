@@ -116,15 +116,11 @@ public partial class LemingMovementController : MonoBehaviour
 			, _boxCollider2D.size * transform.lossyScale.x);
 	}
 
-	private void OnJump()
-	{
-		if (!_audioSource.isPlaying)
-			_audioSource.Play();
-	}
-
 	public void Die(Killer killer)
 	{
 		_currentState.Die(killer);
+		if (!_audioSource.isPlaying)
+			_audioSource.Play();
 	}
 
 	public void Respawn(Vector3 position)
