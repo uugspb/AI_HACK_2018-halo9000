@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour {
+public class MainMenu : MonoBehaviour
+{
+    public void OnNewGameClick()
+    {
+        SceneManager.LoadScene(1);
+    }
 
-	void Start ()
+    public void OnExitClick()
     {
-		
-	}
-	
-	void Update ()
-    {
-		
-	}
+        Application.Quit();
+    }
 }
