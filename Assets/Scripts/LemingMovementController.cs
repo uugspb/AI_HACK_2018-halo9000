@@ -158,6 +158,7 @@ public class LemingMovementController : MonoBehaviour
 	public float JumpForce;
 	public int motion;
 	private Rigidbody2D _rigidbody2D;
+	[SerializeField] private BoxCollider2D _boxCollider2D;
 	public int _movementDirection;
 	public float _verticalSpeed;
 	public float _groundCollisionVectorLength = 0.1f;
@@ -190,7 +191,9 @@ public class LemingMovementController : MonoBehaviour
 
 	public void ManualFixedUpdate(LemmingMovementDirection input)
 	{
-		_groundHit = Physics2D.Raycast(transform.position, Vector2.down, _groundCollisionVectorLength, CollisitonMask.value);
+		_groundHit = Physics2D.BoxCast(transform.position, _boxCollider2D.size * transform.lossyScale.x, 0, Vector2.down, _groundCollisionVectorLength,
+			CollisitonMask.value);
+		
 		isGrounded = _groundHit.collider != null;
 		HittedCollider = _groundHit.collider;
 
@@ -214,7 +217,9 @@ public class LemingMovementController : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		Gizmos.DrawLine(transform.position, transform.position + new Vector3(0,Vector2.down.y * _groundCollisionVectorLength, 0));
+		Gizmos.color = Color.yellow;
+		Gizmos.DrawWireCube(transform.position + new Vector3(_boxCollider2D.offset.x, _boxCollider2D.offset.y, 0)
+			, _boxCollider2D.size * transform.lossyScale.x);
 	}
 
 	private void OnJump()
