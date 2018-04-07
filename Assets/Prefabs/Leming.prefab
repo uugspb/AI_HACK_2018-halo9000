@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1014139556932060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.56, y: 0.67, z: 0}
+  m_LocalPosition: {x: -12, y: 8.66, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -93,13 +93,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   Speed: 0.1
+  AirControllSpeed: 0.05
   JumpForce: 10
   motion: 0
   _movementDirection: 0
   _verticalSpeed: 0
   _groundCollisionVectorLength: 0.75
   CurrentState: 
-  isGrounded: 0
+  isGrounded: 1
   HittedCollider: {fileID: 0}
 --- !u!212 &212393810076007478
 SpriteRenderer:
