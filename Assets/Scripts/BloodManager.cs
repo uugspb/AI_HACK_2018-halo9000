@@ -26,13 +26,15 @@ public class BloodManager : MonoBehaviour {
     }
 
     void Update () {
-		
-        if (Input.GetMouseButtonDown(0))
+        if (HUD.gameMode == GameMode.Play)
         {
-            Vector3 killPoint = Input.mousePosition;
-            killPoint = Camera.main.ScreenToWorldPoint(killPoint);
-            killPoint.z = -1;
-            ShowKillEffect(killPoint);
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 killPoint = Input.mousePosition;
+                killPoint = Camera.main.ScreenToWorldPoint(killPoint);
+                killPoint.z = -1;
+                ShowKillEffect(killPoint);
+            }
         }
 	}
 

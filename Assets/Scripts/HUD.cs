@@ -10,7 +10,7 @@ public class HUD : MonoBehaviour {
     public GameObject loseWindow;
     public GameObject winWindow;
     public GameObject pauseWindow;
-    public GameMode gameMode;
+    static public GameMode gameMode;
 
     static private HUD instance;
 
