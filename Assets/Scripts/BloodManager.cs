@@ -49,7 +49,8 @@ public class BloodManager : MonoBehaviour {
     void SpawnMeats(Vector3 killPoint)
     {
         Vector2 dir = Random.insideUnitCircle.normalized;
-        var hit = Physics2D.Raycast(killPoint, dir, maxDist);
+        int layer = 1 << LayerMask.NameToLayer("Default");
+        var hit = Physics2D.Raycast(killPoint, dir, maxDist, layer);
         if (hit.collider != null)
         {
             Vector3 hitPoint = new Vector3(hit.point.x, hit.point.y, -1);
