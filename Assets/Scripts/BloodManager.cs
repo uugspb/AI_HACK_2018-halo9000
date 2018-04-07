@@ -31,15 +31,17 @@ public class BloodManager : MonoBehaviour {
         _bloodExplosionPrefab = Resources.Load<GameObject>("Effects/BloodExplosion");
     }
 
-    void Update () {
-        if (HUD.gameMode == GameMode.Play && Input.GetMouseButtonDown(0))
-        {
-            Vector3 killPoint = Input.mousePosition;
-            killPoint = Camera.main.ScreenToWorldPoint(killPoint);
-            killPoint.z = -1;
-            ShowKillEffect(killPoint);
-            SpawnGrave(killPoint);
-        }
+    void Update () 
+    {
+        //TEST DEATH EFFECTS
+//        if (HUD.gameMode == GameMode.Play && Input.GetMouseButtonDown(0))
+//        {
+//            Vector3 killPoint = Input.mousePosition;
+//            killPoint = Camera.main.ScreenToWorldPoint(killPoint);
+//            killPoint.z = -1;
+//            ShowKillEffect(killPoint);
+//            SpawnGrave(killPoint);
+//        }
 	}
 
     public void SpawnGrave(Vector3 killPoint)
