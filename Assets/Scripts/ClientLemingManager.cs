@@ -31,7 +31,7 @@ public class ClientLemingManager : MonoBehaviour
             
             BloodManager.instance.ShowKillEffect(controller.transform.position);
             Record.MutateLastActions(SimualtionFrameId);
-            Record.Mutate();
+//            Record.Mutate();
             if(killer == Killer.Player)
                 BloodManager.instance.SpawnGrave(controller.transform.position);
             SimualtionFrameId = 0;
