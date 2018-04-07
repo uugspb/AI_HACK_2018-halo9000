@@ -21,7 +21,6 @@ public class LemingMovementController : MonoBehaviour
 	
 	private ControllerState _currentState;
 	public LayerMask CollisitonMask;
-	public LemmingRunRecord Record;
 	
 	private class ControllerState
 	{
@@ -303,8 +302,6 @@ public class LemingMovementController : MonoBehaviour
 	{
 		transform.position = position;
 		_currentState = new SpawnState(this);
-		if (Record != null)
-			Record.MutateLastActions();
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)

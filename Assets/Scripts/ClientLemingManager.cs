@@ -18,7 +18,7 @@ public class ClientLemingManager : MonoBehaviour
 
     private void Awake()
     {
-        Record = new LemmingRunRecord();
+        Record = RecordsStorage.Records[RecordID];
 
         if (Leming == null)
         {
@@ -28,9 +28,10 @@ public class ClientLemingManager : MonoBehaviour
         Leming.OnDead += controller =>
         {
             BloodManager.instance.ShowKillEffect(controller.transform.position);
+            RecordsStorage.Records[RecordID].MutateLastActions(SimualtionFrameId);
+            SimualtionFrameId = 0;
             controller.Respawn(SpawnPosition);
         };
-        Leming.Record = Record;
 
         SpawnPosition = Leming.transform.position;
     }
