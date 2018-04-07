@@ -24,6 +24,11 @@ public partial class LemingMovementController
             {
                 _controller.CurrentState = new IdleState(_controller);
             }
+            else if (_controller.IsCeiled())
+            {
+                _controller._verticalSpeed = -_controller.JumpForce;
+                _controller.CurrentState = new FalldownState(_controller);
+            }
         }
 
         public override void Move(int direction)

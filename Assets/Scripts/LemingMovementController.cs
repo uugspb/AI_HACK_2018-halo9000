@@ -110,7 +110,7 @@ public partial class LemingMovementController : MonoBehaviour
 		{
 			Debug.Assert(HittedCollider.transform != null, "HittedCollider.transform != null");
 			var colliderPosition = _groundHit.point;
-			_collisionSide = colliderPosition.y <= transform.position.y ? CollisionSide.Ground : CollisionSide.Cellar;
+			_collisionSide = colliderPosition.y <= transform.position.y ? CollisionSide.Ground : CollisionSide.Ceiling;
 		}
 		else
 		{
@@ -134,7 +134,7 @@ public partial class LemingMovementController : MonoBehaviour
 	{
 		None,
 		Ground,
-		Cellar,
+		Ceiling,
 		Left,
 		Right
 	}
@@ -144,11 +144,11 @@ public partial class LemingMovementController : MonoBehaviour
 		return _collisionSide == CollisionSide.Ground;
 	}
 
-	bool IsCelled()
+	bool IsCeiled()
 	{
-		return _collisionSide == CollisionSide.Cellar;
+		return _collisionSide == CollisionSide.Ceiling;
 	}
-	
+
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.yellow;
