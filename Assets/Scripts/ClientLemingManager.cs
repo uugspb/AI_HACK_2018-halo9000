@@ -28,7 +28,8 @@ public class ClientLemingManager : MonoBehaviour
         Leming.OnDead += controller =>
         {
             BloodManager.instance.ShowKillEffect(controller.transform.position);
-            RecordsStorage.Records[RecordID].MutateLastActions(SimualtionFrameId);
+            Record.MutateLastActions(SimualtionFrameId);
+            Record.Mutate();
             SimualtionFrameId = 0;
             controller.Respawn(SpawnPosition);
         };
