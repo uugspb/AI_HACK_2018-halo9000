@@ -58,6 +58,7 @@ public class LemingMovementController : MonoBehaviour
 		{
 			_controller._verticalSpeed = _controller.JumpForce;
 			_controller.CurrentStateS = new JumpState(_controller);
+			_controller.OnJump();
 		}
 
 		public override void Update()
@@ -88,6 +89,7 @@ public class LemingMovementController : MonoBehaviour
 		{
 			_controller._verticalSpeed = _controller.JumpForce;
 			_controller.CurrentStateS = new JumpState(_controller);
+			_controller.OnJump();
 		}
 
 		public override void Update()
@@ -165,6 +167,7 @@ public class LemingMovementController : MonoBehaviour
 	public bool isGrounded = false;	
 	public Collider2D HittedCollider;
 	public RaycastHit2D _groundHit;
+	private AudioSource _audioSource;
 
 
 	private ControllerState CurrentStateS
@@ -181,6 +184,7 @@ public class LemingMovementController : MonoBehaviour
 	private void Awake()
 	{
 		_rigidbody2D = GetComponent<Rigidbody2D>();
+		_audioSource = GetComponent<AudioSource>();
 		CurrentStateS = new IdleState(this);
 	}
 
@@ -211,5 +215,11 @@ public class LemingMovementController : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Gizmos.DrawLine(transform.position, transform.position + new Vector3(0,Vector2.down.y * _groundCollisionVectorLength, 0));
+	}
+
+	private void OnJump()
+	{
+		if (!_audioSource.isPlaying)
+			_audioSource.Play();
 	}
 }
