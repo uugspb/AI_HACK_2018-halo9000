@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using JetBrains.Annotations;
 using UnityEngine;
-using Debug = System.Diagnostics.Debug;
-
 
 public enum Killer
 {
@@ -108,7 +106,6 @@ public partial class LemingMovementController : MonoBehaviour
 		HittedCollider = _groundHit.collider;
 		if (HittedCollider != null)
 		{
-			Debug.Assert(HittedCollider.transform != null, "HittedCollider.transform != null");
 			var colliderPosition = _groundHit.point;
 			_collisionSide = colliderPosition.y <= transform.position.y ? CollisionSide.Ground : CollisionSide.Ceiling;
 		}
