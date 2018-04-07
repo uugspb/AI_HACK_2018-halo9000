@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace DefaultNamespace
 {
+    [Serializable]
     public class LemmingRunRecord
     {
-        private List<LemmingMovementDirection> _data;
+        [SerializeField]
+        private List<LemmingMovementDirection> _data = new List<LemmingMovementDirection>();
 
         public LemmingRunRecord()
         {
@@ -18,7 +22,15 @@ namespace DefaultNamespace
 
         public LemmingMovementDirection GetOrGenerateNextMovement(int currentStep)
         {
-            return _data.Count > currentStep ? _data[currentStep] : LemmingUtils.GenerateNextDirection();
+            if(_data.Count <= currentStep)  
+                _data.Add(LemmingUtils.GenerateNextDirection());
+
+            return _data[currentStep];
+        }
+
+        public void AddMovement(LemmingMovementDirection direciton)
+        {
+            _data.Add(direciton);
         }
 
         public int Size

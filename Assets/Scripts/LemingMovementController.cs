@@ -1,16 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
-
-[Flags]
-public enum EInput
-{
-	None = 0, 
-	MoveRigth = 1 << 0, 
-	MoveLeft = 1 << 1, 
-	Jump = 1 << 2
-}
 
 
 public class LemingMovementController : MonoBehaviour
@@ -192,14 +184,14 @@ public class LemingMovementController : MonoBehaviour
 		CurrentStateS = new IdleState(this);
 	}
 
-	public void ManualFixedUpdate(int input)
+	public void ManualFixedUpdate(LemmingMovementDirection input)
 	{
 		_groundHit = Physics2D.Raycast(transform.position, Vector2.down, _groundCollisionVectorLength, CollisitonMask.value);
 		isGrounded = _groundHit.collider != null;
 		HittedCollider = _groundHit.collider;
 
-		motion = (input & (int) EInput.MoveRigth) > 0 ? 1 : (input & (int) EInput.MoveLeft) > 0 ? -1 : 0;
-		jump = (input & (int) EInput.Jump) > 0; 
+		motion = (input & LemmingMovementDirection.Right) > 0 ? 1 : (input & LemmingMovementDirection.Left) > 0 ? -1 : 0;
+		jump = (input & LemmingMovementDirection.Jump) > 0; 
 		
 		CurrentStateS.Move(motion);
 		if(jump)
