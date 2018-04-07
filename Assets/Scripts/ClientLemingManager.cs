@@ -25,6 +25,11 @@ public class ClientLemingManager : MonoBehaviour
             Leming = FindObjectOfType<LemingMovementController>();
         }
 
+        Leming.OnDead += controller =>
+        {
+            BloodManager.instance.ShowKillEffect(controller.transform.position);
+            controller.Respawn(SpawnPosition);
+        };
         Leming.Record = Record;
 
         SpawnPosition = Leming.transform.position;
@@ -66,7 +71,6 @@ public class ClientLemingManager : MonoBehaviour
                     if (lemingMovementController != null)
                     {
                         lemingMovementController.Die();
-                        lemingMovementController.Respawn(SpawnPosition);
                     }
                 }
             }

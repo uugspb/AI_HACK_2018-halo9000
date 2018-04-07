@@ -61,7 +61,34 @@ public class LemingMovementController : MonoBehaviour
 		{}
 
 	}
-	
+
+	private class SpawnState : ControllerState
+	{
+		public SpawnState(LemingMovementController controller) : base(controller)
+		{
+		}
+
+		public override void Start()
+		{
+			_controller._verticalSpeed = 0;
+		}
+
+		public override void Update()
+		{			
+			_controller._verticalSpeed += Physics2D.gravity.y * Time.fixedDeltaTime;
+			_controllerRigidbody2D.MovePosition(
+				_controllerRigidbody2D.position + new Vector2(_controller._movementDirection * _controller.AirControllSpeed,
+					_controller._verticalSpeed * Time.fixedDeltaTime));
+
+			if (_controller.IsGrounded())
+			{
+				_controller.CurrentState = new IdleState(_controller);
+			}
+		}
+		
+	}
+
+
 	private class IdleState : ControllerState
 	{
 		public IdleState(LemingMovementController controller) : base(controller)
@@ -166,6 +193,13 @@ public class LemingMovementController : MonoBehaviour
 		public DeathState(LemingMovementController controller) : base(controller)
 		{
 		}
+
+		public override void Start()
+		{
+			_controller._movementDirection = 0;
+			_controller._verticalSpeed = 0;
+			_controller.motion = 0;
+		}
 	}
 
 	public float Speed;
@@ -198,7 +232,7 @@ public class LemingMovementController : MonoBehaviour
 				_currentState.End();	
 			}
 			
-			Debug.LogFormat("{0}->{1}", _currentState, value);
+//			Debug.LogFormat("{0}->{1}", _currentState, value);
 			_currentState = value;
 
 			if(_currentState != null)
@@ -217,7 +251,7 @@ public class LemingMovementController : MonoBehaviour
 	private void Awake()
 	{
 		_rigidbody2D = GetComponent<Rigidbody2D>();
-		CurrentState = new IdleState(this);
+		CurrentState = new SpawnState(this);
 		_audioSource = GetComponent<AudioSource>();
 	}
 
@@ -268,8 +302,17 @@ public class LemingMovementController : MonoBehaviour
 	public void Respawn(Vector3 position)
 	{
 		transform.position = position;
-		_currentState = new IdleState(this);
+		_currentState = new SpawnState(this);
 		if (Record != null)
 			Record.MutateLastActions();
+	}
+
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "Spike")
+		{
+			Die();
+		}
+			
 	}
 }
