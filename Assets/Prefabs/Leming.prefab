@@ -23,30 +23,10 @@ GameObject:
   - component: {fileID: 50188348252249504}
   - component: {fileID: 114508911802577782}
   - component: {fileID: 61273874278130296}
-<<<<<<< HEAD
   - component: {fileID: 82566468633146360}
   - component: {fileID: 95478062694525890}
-=======
-  - component: {fileID: 82053783504420968}
->>>>>>> 3d1ad6378083817f33c16aebd079604828864cbb
   m_Layer: 8
   m_Name: Leming
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1521316635455578
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4605220622485320}
-  - component: {fileID: 114298194155864974}
-  m_Layer: 0
-  m_Name: LemingHolder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,28 +39,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1014139556932060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-<<<<<<< HEAD
   m_LocalPosition: {x: -10.41, y: 9.26, z: 0}
-=======
-  m_LocalPosition: {x: 4.56, y: 0.67, z: 0}
->>>>>>> 3d1ad6378083817f33c16aebd079604828864cbb
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
-  m_Children:
-  - {fileID: 4605220622485320}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4605220622485320
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1521316635455578}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -47.36, y: -5.04, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
-  m_Father: {fileID: 4493568879558398}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50188348252249504
@@ -128,11 +90,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 4}
   m_EdgeRadius: 0
-<<<<<<< HEAD
 --- !u!82 &82566468633146360
-=======
---- !u!82 &82053783504420968
->>>>>>> 3d1ad6378083817f33c16aebd079604828864cbb
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -212,7 +170,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-<<<<<<< HEAD
 --- !u!95 &95478062694525890
 Animator:
   serializedVersion: 3
@@ -230,30 +187,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-=======
---- !u!114 &114298194155864974
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1521316635455578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbe24b4bf43541d188248e7a26004859, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RecordsStorage: {fileID: 11400000, guid: 9760a8ba1257c4db98923d6ae5265c05, type: 2}
-  Leming: {fileID: 114508911802577782}
-  _input: 0
-  Record:
-    _data: 
-  SpawnPosition: {x: 0, y: 0, z: 0}
-  RecordRun: 0
-  Simulate: 1
-  RecordID: 0
-  Save: 0
-  SimualtionFrameId: 0
->>>>>>> 3d1ad6378083817f33c16aebd079604828864cbb
 --- !u!114 &114508911802577782
 MonoBehaviour:
   m_ObjectHideFlags: 1
