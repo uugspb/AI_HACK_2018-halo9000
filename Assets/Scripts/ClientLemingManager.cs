@@ -25,6 +25,7 @@ public class ClientLemingManager : MonoBehaviour
             Leming = FindObjectOfType<LemingMovementController>();
         }
 
+        Leming.Record = Record;
 
         SpawnPosition = Leming.transform.position;
     }

@@ -21,6 +21,7 @@ public class LemingMovementController : MonoBehaviour
 	
 	private ControllerState _currentState;
 	public LayerMask CollisitonMask;
+	public LemmingRunRecord Record;
 	
 	private class ControllerState
 	{
@@ -268,5 +269,7 @@ public class LemingMovementController : MonoBehaviour
 	{
 		transform.position = position;
 		_currentState = new IdleState(this);
+		if (Record != null)
+			Record.MutateLastActions();
 	}
 }

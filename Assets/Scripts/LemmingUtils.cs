@@ -14,14 +14,6 @@ namespace DefaultNamespace
             return new LemmingRunRecord(result);
         }
 
-        public static void Mutate(this LemmingRunRecord record, double mutationRatio = 0.1)
-        {
-            var numberOfMutations = (int) (record.Size * mutationRatio);
-            var random = new Random();
-            for (var i = 0; i < numberOfMutations; i++)
-                record[(int) (GetRandom(random) * record.Size)] = GenerateNextDirection();
-        }
-
         public static double GetRandom(Random random)
         {
             var num = random.NextDouble();
