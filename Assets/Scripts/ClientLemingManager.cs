@@ -16,6 +16,7 @@ public class ClientLemingManager : MonoBehaviour
 
     public bool Simulate;
 
+    private int _minimumFrameDistanceToForceMutation = 100;
     private void Awake()
     {
         Record = RecordsStorage.GetNewRecord();
@@ -31,7 +32,15 @@ public class ClientLemingManager : MonoBehaviour
             
             BloodManager.instance.ShowKillEffect(controller.transform.position);
             Record.MutateLastActions(SimualtionFrameId);
+<<<<<<< HEAD
 //            Record.Mutate();
+=======
+            if (Math.Abs(SimualtionFrameId - _previousFrameId) < _minimumFrameDistanceToForceMutation)
+                Record.Mutate(0.2);
+            _previousFrameId = SimualtionFrameId;
+            if (WinnersTable.WinnersData.Any())
+                Record = new LemmingRunRecord(WinnersTable.WinnersData[0].Data);
+>>>>>>> dde92dec7b93f87f15169ae8c4be30ef8910e64a
             if(killer == Killer.Player)
                 BloodManager.instance.SpawnGrave(controller.transform.position);
             SimualtionFrameId = 0;

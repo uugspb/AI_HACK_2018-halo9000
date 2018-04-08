@@ -83,6 +83,8 @@ public partial class LemingMovementController : MonoBehaviour
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 		CurrentState = new SpawnState(this);
 		_audioSource = GetComponent<AudioSource>();
+		
+		InitUnstuck();
 	}
 
 	private void Update()
@@ -91,15 +93,15 @@ public partial class LemingMovementController : MonoBehaviour
 		{
 			Die(Killer.Player);			
 		}
-
 	}
-
 	public void ManualFixedUpdate(LemmingMovementDirection input)
 	{
 		if (this == null)
 		{
 			return;
 		}
+		
+		CheckUnstuck();
 		
 		_groundHit = Physics2D.BoxCast(transform.position, _boxCollider2D.size * transform.lossyScale.x, 0, Vector2.down, _groundCollisionVectorLength,
 			CollisitonMask.value);
@@ -163,8 +165,39 @@ public partial class LemingMovementController : MonoBehaviour
 
 	public void Respawn(Vector3 position)
 	{
+		
 		transform.position = position;
 		_currentState = new SpawnState(this);
+	}
+
+	private Vector3 prevPosition;
+	private float prevTimePositionChecked;
+
+	
+	private void CheckUnstuck()
+	{
+		const float checkIntervalSeconds = 1;
+
+		if (Time.fixedTime - prevTimePositionChecked < checkIntervalSeconds)
+			return;
+		
+		const float eps = 0.1f;
+		if (Vector3.Distance(transform.position, prevPosition) > eps)
+		{
+			prevPosition = transform.position;
+			prevTimePositionChecked = Time.fixedTime;
+		}
+		else
+		{
+			transform.Translate(0, -0.1f, 0);
+			Debug.Log("Unstuck");
+		}
+	}
+
+	private void InitUnstuck()
+	{
+		prevPosition = transform.position;
+		prevTimePositionChecked = Time.fixedTime;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
