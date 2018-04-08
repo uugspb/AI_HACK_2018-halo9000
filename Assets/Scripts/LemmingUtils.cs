@@ -23,7 +23,7 @@ namespace DefaultNamespace
         public static LemmingMovementDirection GenerateNextDirection()
         {
             var random = new Random();
-            return (random.Next(0, 2) == 0 ? LemmingMovementDirection.Jump : LemmingMovementDirection.None) |
+            return (random.Next(0, 6) == 0 ? LemmingMovementDirection.Jump : LemmingMovementDirection.None) |
                    (random.Next(0, 2) == 0 ? LemmingMovementDirection.Right : LemmingMovementDirection.None);
         }
     }
