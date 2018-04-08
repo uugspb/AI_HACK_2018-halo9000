@@ -158,7 +158,7 @@ public partial class LemingMovementController : MonoBehaviour
 	
 	private void CheckUnstuck()
 	{
-		const float checkIntervalSeconds = 1;
+		const float checkIntervalSeconds = 0.5f;
 
 		if (Time.fixedTime - prevTimePositionChecked < checkIntervalSeconds)
 			return;
