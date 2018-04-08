@@ -33,12 +33,18 @@ public class ClientLemingManager : MonoBehaviour
         {
             
             BloodManager.instance.ShowKillEffect(controller.transform.position);
-            Record.MutateLastActions(SimualtionFrameId);
+            Record.MutateLastActions(SimualtionFrameId);            
+            if (WinnersTable.WinnersData.Any())
+            {
+                var data = WinnersTable.WinnersData[0].Data;
+                Array.Resize(ref data, (int) (0.75 * data.Length));
+                Record = new LemmingRunRecord(data);
+            }
             if (Math.Abs(SimualtionFrameId - _previousFrameId) < _minimumFrameDistanceToForceMutation)
                 Record.Mutate(0.2);
             _previousFrameId = SimualtionFrameId;
-            if (WinnersTable.WinnersData.Any())
-                Record = new LemmingRunRecord(WinnersTable.WinnersData[0].Data);
+
+
             if(killer == Killer.Player)
                 BloodManager.instance.SpawnGrave(controller.transform.position);
             SimualtionFrameId = 0;
