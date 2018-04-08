@@ -443,6 +443,11 @@ Prefab:
       propertyPath: m_Name
       value: Leming1
       objectReference: {fileID: 0}
+    - target: {fileID: 114279714626130982, guid: 2fa8681d50b6147c7842ded29366bd7b,
+        type: 2}
+      propertyPath: Simulate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2fa8681d50b6147c7842ded29366bd7b, type: 2}
   m_IsPrefabParent: 0
