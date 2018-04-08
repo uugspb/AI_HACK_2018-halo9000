@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using DefaultNamespace;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -15,17 +13,6 @@ public partial class LemingMovementController : MonoBehaviour
 	
 	public event Action<LemingMovementController, Killer> OnDead;
 	public event Action<LemingMovementController> OnExit;
-
-	private void CallOnDead()
-	{
-		if (OnDead != null)
-		{
-			var killer = Killer;
-			Killer = Killer.None;
-			OnDead(this, killer);
-		}
-	}
-	
 	
 	private ControllerState _currentState;
 	public LayerMask CollisitonMask;
@@ -62,17 +49,11 @@ public partial class LemingMovementController : MonoBehaviour
 				_currentState.End();	
 			}
 			
-//			Debug.LogFormat("{0}->{1}", _currentState, value);
+			Debug.LogFormat("{0}->{1}", _currentState, value);
 			_currentState = value;
 
 			if(_currentState != null)
 				_currentState.Start();
-			
-			
-			if (_currentState is DeathState)
-			{
-				CallOnDead();
-			}
 
 			CurrentStateName = _currentState.GetType().Name;
 		}
@@ -170,11 +151,11 @@ public partial class LemingMovementController : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.tag == "Spike")
+		if (other.gameObject.CompareTag("Spike"))
 		{
 			Die(Killer.Suicide);
 		}
-		else if (other.gameObject.tag == "Exit")
+		else if (other.gameObject.CompareTag("Exit"))
 		{
 			OnOnExit();
 			Destroy(gameObject);
