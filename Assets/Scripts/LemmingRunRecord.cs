@@ -72,6 +72,7 @@ namespace DefaultNamespace
         public LemmingMovementDirection[] Data
         {
             get { return _data.ToArray(); }
+            set { _data = new List<LemmingMovementDirection>(value);}
         }
     }
 }

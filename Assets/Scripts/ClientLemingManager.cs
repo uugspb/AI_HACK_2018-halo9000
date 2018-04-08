@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using DefaultNamespace;
+﻿using DefaultNamespace;
 using UnityEngine;
 
 public class ClientLemingManager : MonoBehaviour
@@ -29,11 +27,12 @@ public class ClientLemingManager : MonoBehaviour
             Leming = FindObjectOfType<LemingMovementController>();
         }
 
+        var exitObject = GameObject.FindGameObjectWithTag("Exit");
         Leming.OnDead += (controller, killer) =>
         {
             
             BloodManager.instance.ShowKillEffect(controller.transform.position);
-            Record.Mutate(SimualtionFrameId, _previousFrameId);
+            LemmingUtils.ModifyRecord(Record, (exitObject.transform.position - controller.transform.position).sqrMagnitude);
             _previousFrameId = SimualtionFrameId;
 
 
