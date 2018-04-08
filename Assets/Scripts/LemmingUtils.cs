@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace DefaultNamespace
 {
@@ -25,6 +26,21 @@ namespace DefaultNamespace
             var random = new Random();
             return (random.Next(0, 6) == 0 ? LemmingMovementDirection.Jump : LemmingMovementDirection.None) |
                    (random.Next(0, 2) == 0 ? LemmingMovementDirection.Right : LemmingMovementDirection.None);
+        }
+
+        private static int _minimumFrameDistanceToForceMutation = 100;
+
+        public static void Mutate(this LemmingRunRecord record, int frameId, int previousFrameId)
+        {
+            record.MutateLastActions(frameId);            
+            if (WinnersTable.WinnersData.Any())
+            {
+                var data = WinnersTable.WinnersData[0].Data;
+                Array.Resize(ref data, (int) (0.75 * data.Length));
+                record = new LemmingRunRecord(data);
+            }
+            if (Math.Abs(frameId - previousFrameId) < _minimumFrameDistanceToForceMutation)
+                record.Mutate(0.2);
         }
     }
 }
