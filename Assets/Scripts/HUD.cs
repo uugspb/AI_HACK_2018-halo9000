@@ -41,6 +41,13 @@ public class HUD : MonoBehaviour {
                 HidePauseWindow();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            SceneManager.LoadScene(1);
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+            SceneManager.LoadScene(2);
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+            SceneManager.LoadScene(3);
     }
 
 
@@ -67,12 +74,16 @@ public class HUD : MonoBehaviour {
 
     public void OnRestartClick()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameMode = GameMode.Play;
+        Time.timeScale = 1f;
     }
 
     public void OnNextClick()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        gameMode = GameMode.Play;
+        Time.timeScale = 1f;
     }
 
     public void OnResumeClick()
