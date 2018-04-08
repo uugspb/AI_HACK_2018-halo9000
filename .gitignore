@@ -13,6 +13,9 @@
 *.sln.DotSettings.user
 *.sln.DotSettings
 
+Plugins.meta
+Editor.meta
+
 *.sublime-workspace
 /build/
 /build_/

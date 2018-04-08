@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum GameMode { Play, Pause}
 
@@ -11,6 +12,22 @@ public class HUD : MonoBehaviour {
     public GameObject winWindow;
     public GameObject pauseWindow;
     static public GameMode gameMode;
+    public Text zombiesLeftText;
+    static public int zombiesLeftValue;
+
+    static public int ZombiesLeftValue
+    {
+        get
+        {
+            return zombiesLeftValue;
+        }
+        set
+        {
+            zombiesLeftValue = value;
+            if (zombiesLeftValue < 0)
+                zombiesLeftValue = 0;
+        }
+    }
 
     static private HUD instance;
 
@@ -28,6 +45,12 @@ public class HUD : MonoBehaviour {
         gameMode = GameMode.Play;
     }
 
+    private void Start()
+    {
+        ZombiesLeftValue = GameObject.FindGameObjectsWithTag("Leming").Length / 2;
+        UpdateZombiesLeftValue(ZombiesLeftValue);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -41,6 +64,13 @@ public class HUD : MonoBehaviour {
                 HidePauseWindow();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            SceneManager.LoadScene(1);
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+            SceneManager.LoadScene(2);
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+            SceneManager.LoadScene(3);
     }
 
 
@@ -67,12 +97,16 @@ public class HUD : MonoBehaviour {
 
     public void OnRestartClick()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameMode = GameMode.Play;
+        Time.timeScale = 1f;
     }
 
     public void OnNextClick()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        gameMode = GameMode.Play;
+        Time.timeScale = 1f;
     }
 
     public void OnResumeClick()
@@ -97,5 +131,10 @@ public class HUD : MonoBehaviour {
     public void OnExitClick()
     {
         Application.Quit();
+    }
+
+    public void UpdateZombiesLeftValue(int value)
+    {
+        zombiesLeftText.text = "Zombies Left: " + value.ToString();
     }
 }

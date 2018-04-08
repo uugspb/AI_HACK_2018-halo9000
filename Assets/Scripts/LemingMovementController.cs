@@ -2,6 +2,7 @@
 using DefaultNamespace;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public enum Killer
 {
@@ -59,8 +60,12 @@ public partial class LemingMovementController : MonoBehaviour
 		}
 	}
 
+	private float whenWokeUp;
+	
 	private void Awake()
 	{
+		whenWokeUp = Time.fixedTime;
+		
         LemingAnimator = GetComponent<Animator>();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 		CurrentState = new SpawnState(this);
@@ -76,12 +81,16 @@ public partial class LemingMovementController : MonoBehaviour
 			Die(Killer.Player);			
 		}
 	}
+	
+	private readonly float doNothingInterval = (float) (new System.Random().NextDouble() * 2);
+	
 	public void ManualFixedUpdate(LemmingMovementDirection input)
 	{
 		if (this == null)
-		{
 			return;
-		}
+
+		if (Time.fixedTime - whenWokeUp < doNothingInterval)
+			return;
 		
 		CheckUnstuck();
 		
@@ -155,10 +164,12 @@ public partial class LemingMovementController : MonoBehaviour
 	private Vector3 prevPosition;
 	private float prevTimePositionChecked;
 
+	private RaycastHit2D[] _raycastResults = new RaycastHit2D[100];
 	
 	private void CheckUnstuck()
 	{
-		const float checkIntervalSeconds = 1;
+		// be sure that you want to fix something here
+		const float checkIntervalSeconds = 0.5f;
 
 		if (Time.fixedTime - prevTimePositionChecked < checkIntervalSeconds)
 			return;
@@ -171,9 +182,40 @@ public partial class LemingMovementController : MonoBehaviour
 		}
 		else
 		{
-			transform.Translate(0, -0.1f, 0);
-			Debug.Log("Unstuck");
+			// if you skip raycasting, you can be stuck in floors
+			// if you don't autounstuck, you'll be stuck if ceilings
+			if (!RayCastUnstuck(0.2f, 7, false) && !RayCastUnstuck(0.2f, 7, true))
+				Debug.Log("Can't unstuck up or right");
 		}
+	}
+
+	private bool RayCastUnstuck(float raycastEps, int iterations, bool isUp)
+	{
+		// same
+		for (int i = 0; i < iterations; i++)
+		{
+			var offset = isUp ? new Vector3(0, raycastEps * i, 0) : new Vector3(raycastEps * i, 0, 0);
+			var screenpoint = Camera.main.WorldToScreenPoint(transform.position + offset);
+			var ray = Camera.main.ScreenPointToRay(screenpoint);
+
+			var hitCount = Physics2D.RaycastNonAlloc(ray.origin, ray.direction, _raycastResults, Mathf.Infinity);
+			if (hitCount > 0)
+			{
+				for (var j = 0; j < hitCount; j++)
+				{
+					var hitCollider = _raycastResults[j].collider;
+					if (hitCollider is TilemapCollider2D)
+					{
+						var unstuckVector = offset * -1.2f;
+						transform.Translate(unstuckVector);
+						Debug.Log("Auto-unstuck vector " + unstuckVector);
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
 	}
 
 	private void InitUnstuck()
@@ -201,7 +243,10 @@ public partial class LemingMovementController : MonoBehaviour
 		var handler = OnExit;
 		if (handler != null) 
 			handler(this);
-        if (GameObject.FindGameObjectsWithTag("Leming").Length <= 1)
+
+        HUD.Instance.UpdateZombiesLeftValue(--HUD.ZombiesLeftValue);
+
+        if (HUD.ZombiesLeftValue <= 0)
             HUD.Instance.ShowWinWindow();
     }
 }
