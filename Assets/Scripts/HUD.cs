@@ -15,6 +15,20 @@ public class HUD : MonoBehaviour {
     public Text zombiesLeftText;
     static public int zombiesLeftValue;
 
+    static public int ZombiesLeftValue
+    {
+        get
+        {
+            return zombiesLeftValue;
+        }
+        set
+        {
+            zombiesLeftValue = value;
+            if (zombiesLeftValue < 0)
+                zombiesLeftValue = 0;
+        }
+    }
+
     static private HUD instance;
 
     static public HUD Instance
@@ -33,8 +47,8 @@ public class HUD : MonoBehaviour {
 
     private void Start()
     {
-        zombiesLeftValue = GameObject.FindGameObjectsWithTag("Leming").Length / 2;
-        UpdateZombiesLeftValue(zombiesLeftValue);
+        ZombiesLeftValue = GameObject.FindGameObjectsWithTag("Leming").Length / 2;
+        UpdateZombiesLeftValue(ZombiesLeftValue);
     }
 
     private void Update()
