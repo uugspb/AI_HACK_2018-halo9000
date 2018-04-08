@@ -15,7 +15,7 @@ public class BloodManager : MonoBehaviour {
     float maxDistGrave = 5f;
     float explosionTtl = 5f;
     int bloodsPerExplosion = 3;
-    int maxBloods = 100;
+    int maxBloods = 1000;
     int maxGraves = 100;
 
     private GameObject _bloodExplosionPrefab;
