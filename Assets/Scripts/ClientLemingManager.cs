@@ -17,6 +17,7 @@ public class ClientLemingManager : MonoBehaviour
     public bool RecordRun;
 
     public bool Simulate;
+    public float killRadius = 0.3f;
 
     private int _minimumFrameDistanceToForceMutation = 100;
     private void Awake()
@@ -74,7 +75,7 @@ public class ClientLemingManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            var hitedCount = Physics2D.RaycastNonAlloc(ray.origin, ray.direction, _raycastResults, Mathf.Infinity);
+            var hitedCount = Physics2D.CircleCastNonAlloc(ray.origin, killRadius, ray.direction, _raycastResults, Mathf.Infinity);
             if (hitedCount > 0)
             {
                 for (var i = 0; i < hitedCount; i++)
