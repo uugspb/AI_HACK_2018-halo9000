@@ -56,7 +56,6 @@ public partial class LemingMovementController : MonoBehaviour
 		get { return _currentState; }
 		set
 		{
-			
 			if (_currentState != null)
 			{
 				_currentState.End();	
@@ -177,8 +176,8 @@ public partial class LemingMovementController : MonoBehaviour
 		else if (other.gameObject.tag == "Exit")
 		{
 			OnOnExit();
-			Destroy(gameObject);
-		}
+			Destroy(gameObject);           
+        }
 	}
 
 	protected virtual void OnOnExit()
@@ -187,5 +186,7 @@ public partial class LemingMovementController : MonoBehaviour
 		var handler = OnExit;
 		if (handler != null) 
 			handler(this);
-	}
+        if (GameObject.FindGameObjectsWithTag("Leming").Length <= 1)
+            HUD.Instance.ShowWinWindow();
+    }
 }

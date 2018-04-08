@@ -84,12 +84,14 @@ public class HUD : MonoBehaviour {
     {
         pauseWindow.GetComponent<Animator>().SetBool("windowEnabled", true);
         gameMode = GameMode.Pause;
+        Time.timeScale = 0;
     }
 
     public void HidePauseWindow()
     {
         pauseWindow.GetComponent<Animator>().SetBool("windowEnabled", false);
         gameMode = GameMode.Play;
+        Time.timeScale = 1f;
     }
 
     public void OnExitClick()
