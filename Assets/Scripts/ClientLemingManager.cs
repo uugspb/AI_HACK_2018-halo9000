@@ -1,4 +1,6 @@
-﻿using DefaultNamespace;
+﻿using System;
+using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
 
 public class ClientLemingManager : MonoBehaviour
@@ -16,6 +18,7 @@ public class ClientLemingManager : MonoBehaviour
 
     public bool Simulate;
 
+    private int _minimumFrameDistanceToForceMutation = 100;
     private void Awake()
     {
         Record = RecordsStorage.GetNewRecord();
@@ -30,13 +33,25 @@ public class ClientLemingManager : MonoBehaviour
         {
             
             BloodManager.instance.ShowKillEffect(controller.transform.position);
-            Record.MutateLastActions(SimualtionFrameId);
-//            Record.Mutate();
+            Record.MutateLastActions(SimualtionFrameId);            
+            if (WinnersTable.WinnersData.Any())
+            {
+                var data = WinnersTable.WinnersData[0].Data;
+                Array.Resize(ref data, (int) (0.75 * data.Length));
+                Record = new LemmingRunRecord(data);
+            }
+            if (Math.Abs(SimualtionFrameId - _previousFrameId) < _minimumFrameDistanceToForceMutation)
+                Record.Mutate(0.2);
+            _previousFrameId = SimualtionFrameId;
+
+
             if(killer == Killer.Player)
                 BloodManager.instance.SpawnGrave(controller.transform.position);
             SimualtionFrameId = 0;
             controller.Respawn(SpawnPosition);
         };
+
+        Leming.OnExit += controller => { WinnersTable.WinnersData.Add(Record); };
 
         SpawnPosition = Leming.transform.position;
     }
@@ -86,6 +101,7 @@ public class ClientLemingManager : MonoBehaviour
 
     public bool Save;
     public int SimualtionFrameId = 0;
+    private int _previousFrameId = 0;
     private RaycastHit2D[] _raycastResults = new RaycastHit2D[100];
 
     private void FixedUpdate()
