@@ -235,7 +235,10 @@ public partial class LemingMovementController : MonoBehaviour
 		var handler = OnExit;
 		if (handler != null) 
 			handler(this);
-        if (GameObject.FindGameObjectsWithTag("Leming").Length <= 1)
+
+        HUD.Instance.UpdateZombiesLeftValue(--HUD.zombiesLeftValue);
+
+        if (HUD.zombiesLeftValue <= 0)
             HUD.Instance.ShowWinWindow();
     }
 }

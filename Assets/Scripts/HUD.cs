@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum GameMode { Play, Pause}
 
@@ -11,6 +12,8 @@ public class HUD : MonoBehaviour {
     public GameObject winWindow;
     public GameObject pauseWindow;
     static public GameMode gameMode;
+    public Text zombiesLeftText;
+    static public int zombiesLeftValue;
 
     static private HUD instance;
 
@@ -26,6 +29,12 @@ public class HUD : MonoBehaviour {
     {
         instance = this;
         gameMode = GameMode.Play;
+    }
+
+    private void Start()
+    {
+        zombiesLeftValue = GameObject.FindGameObjectsWithTag("Leming").Length / 2;
+        UpdateZombiesLeftValue(zombiesLeftValue);
     }
 
     private void Update()
@@ -108,5 +117,10 @@ public class HUD : MonoBehaviour {
     public void OnExitClick()
     {
         Application.Quit();
+    }
+
+    public void UpdateZombiesLeftValue(int value)
+    {
+        zombiesLeftText.text = "Zombies Left: " + value.ToString();
     }
 }
