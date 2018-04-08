@@ -82,7 +82,7 @@ public partial class LemingMovementController : MonoBehaviour
 		}
 	}
 	
-	private readonly float doNothingInterval = (float) (new System.Random().NextDouble() * 1);
+	private readonly float doNothingInterval = (float) (new System.Random().NextDouble() * 2);
 	
 	public void ManualFixedUpdate(LemmingMovementDirection input)
 	{
