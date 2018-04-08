@@ -60,8 +60,12 @@ public partial class LemingMovementController : MonoBehaviour
 		}
 	}
 
+	private float whenWokeUp;
+	
 	private void Awake()
 	{
+		whenWokeUp = Time.fixedTime;
+		
         LemingAnimator = GetComponent<Animator>();
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 		CurrentState = new SpawnState(this);
@@ -77,12 +81,16 @@ public partial class LemingMovementController : MonoBehaviour
 			Die(Killer.Player);			
 		}
 	}
+	
+	private readonly float doNothingInterval = (float) (new System.Random().NextDouble() * 1);
+	
 	public void ManualFixedUpdate(LemmingMovementDirection input)
 	{
 		if (this == null)
-		{
 			return;
-		}
+
+		if (Time.fixedTime - whenWokeUp < doNothingInterval)
+			return;
 		
 		CheckUnstuck();
 		
