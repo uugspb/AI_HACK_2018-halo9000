@@ -141,8 +141,8 @@ public partial class LemingMovementController : MonoBehaviour
 	public void Die(Killer killer)
 	{
 		_currentState.Die(killer);
-//		if (!_audioSource.isPlaying)
-//			_audioSource.Play();
+		if (!_audioSource.isPlaying)
+			_audioSource.Play();
 	}
 
 	public void Respawn(Vector3 position)
