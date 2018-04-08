@@ -2,6 +2,7 @@
 using DefaultNamespace;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public enum Killer
 {
@@ -155,9 +156,11 @@ public partial class LemingMovementController : MonoBehaviour
 	private Vector3 prevPosition;
 	private float prevTimePositionChecked;
 
+	private RaycastHit2D[] _raycastResults = new RaycastHit2D[100];
 	
 	private void CheckUnstuck()
 	{
+		// be sure that you want to fix something here
 		const float checkIntervalSeconds = 0.5f;
 
 		if (Time.fixedTime - prevTimePositionChecked < checkIntervalSeconds)
@@ -171,9 +174,38 @@ public partial class LemingMovementController : MonoBehaviour
 		}
 		else
 		{
-			transform.Translate(0, -0.1f, 0);
-			Debug.Log("Unstuck");
+			if (!RayCastUnstuck(0.2f, 7, false) && !RayCastUnstuck(0.2f, 7, true))
+				Debug.Log("Can't unstuck up or right");
 		}
+	}
+
+	private bool RayCastUnstuck(float raycastEps, int iterations, bool isUp)
+	{
+		// same
+		for (int i = 0; i < iterations; i++)
+		{
+			var offset = isUp ? new Vector3(0, raycastEps * i, 0) : new Vector3(raycastEps * i, 0, 0);
+			var screenpoint = Camera.main.WorldToScreenPoint(transform.position + offset);
+			var ray = Camera.main.ScreenPointToRay(screenpoint);
+
+			var hitCount = Physics2D.RaycastNonAlloc(ray.origin, ray.direction, _raycastResults, Mathf.Infinity);
+			if (hitCount > 0)
+			{
+				for (var j = 0; j < hitCount; j++)
+				{
+					var hitCollider = _raycastResults[j].collider;
+					if (hitCollider is TilemapCollider2D)
+					{
+						var unstuckVector = offset * -1.2f;
+						transform.Translate(unstuckVector);
+						Debug.Log("Auto-unstuck vector " + unstuckVector);
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
 	}
 
 	private void InitUnstuck()
