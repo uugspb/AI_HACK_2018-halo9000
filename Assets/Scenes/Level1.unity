@@ -1187,11 +1187,6 @@ Prefab:
       propertyPath: m_Name
       value: Leming2
       objectReference: {fileID: 0}
-    - target: {fileID: 82053783504420968, guid: 2fa8681d50b6147c7842ded29366bd7b,
-        type: 2}
-      propertyPath: MinDistance
-      value: 3.035431
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2fa8681d50b6147c7842ded29366bd7b, type: 2}
   m_IsPrefabParent: 0
