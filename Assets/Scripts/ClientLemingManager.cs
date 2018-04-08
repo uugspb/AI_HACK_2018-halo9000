@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using DefaultNamespace;
+﻿using DefaultNamespace;
 using UnityEngine;
 
 public class ClientLemingManager : MonoBehaviour
@@ -33,18 +31,12 @@ public class ClientLemingManager : MonoBehaviour
             
             BloodManager.instance.ShowKillEffect(controller.transform.position);
             Record.MutateLastActions(SimualtionFrameId);
-            if (Math.Abs(SimualtionFrameId - _previousFrameId) < 100)
-                Record.Mutate(0.2);
-            _previousFrameId = SimualtionFrameId;
-            if (WinnersTable.WinnersData.Any())
-                Record = new LemmingRunRecord(WinnersTable.WinnersData[0].Data);
+//            Record.Mutate();
             if(killer == Killer.Player)
                 BloodManager.instance.SpawnGrave(controller.transform.position);
             SimualtionFrameId = 0;
             controller.Respawn(SpawnPosition);
         };
-
-        Leming.OnExit += controller => { WinnersTable.WinnersData.Add(Record); };
 
         SpawnPosition = Leming.transform.position;
     }
@@ -94,7 +86,6 @@ public class ClientLemingManager : MonoBehaviour
 
     public bool Save;
     public int SimualtionFrameId = 0;
-    private int _previousFrameId = 0;
     private RaycastHit2D[] _raycastResults = new RaycastHit2D[100];
 
     private void FixedUpdate()

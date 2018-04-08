@@ -60,18 +60,17 @@ namespace DefaultNamespace
 
         public void MutateLastActions(int killPoint)
         {
-            if (_data.Count > killPoint)
-            {
-                _data.RemoveRange(killPoint, _data.Count - killPoint);
-            }
+            var numberOfMutations = new Random().Next(30, 100);
+            var mutatePoint = Math.Max(0, killPoint - numberOfMutations + 1);
+            Debug.Log(string.Format("Mutate actions from {0} to {1}, remove actions from {2} to {3} "
+                , mutatePoint, killPoint - 1, killPoint, _data.Count - killPoint - 1));
             
-            var mutationSize = Math.Min(killPoint, new Random().Next(30, 100));
-            _data.RemoveRange(killPoint - mutationSize, mutationSize);
-        }
-
-        public LemmingMovementDirection[] Data
-        {
-            get { return _data.ToArray(); }
+            if(killPoint != _data.Count)
+            {
+                _data.RemoveRange(killPoint, _data.Count - killPoint - 1);
+                for (var i = mutatePoint; i < killPoint; i++)
+                    _data[i] = LemmingUtils.GenerateNextDirection();
+            }
         }
     }
 }
