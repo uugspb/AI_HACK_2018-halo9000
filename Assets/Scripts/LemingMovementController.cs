@@ -174,6 +174,8 @@ public partial class LemingMovementController : MonoBehaviour
 		}
 		else
 		{
+			// if you skip raycasting, you can be stuck in floors
+			// if you don't autounstuck, you'll be stuck if ceilings
 			if (!RayCastUnstuck(0.2f, 7, false) && !RayCastUnstuck(0.2f, 7, true))
 				Debug.Log("Can't unstuck up or right");
 		}
