@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -18,6 +17,7 @@ public class ClientLemingManager : MonoBehaviour
 
     public bool Simulate;
 
+    private int _minimumFrameDistanceToForceMutation = 100;
     private void Awake()
     {
         Record = RecordsStorage.GetNewRecord();
@@ -33,7 +33,7 @@ public class ClientLemingManager : MonoBehaviour
             
             BloodManager.instance.ShowKillEffect(controller.transform.position);
             Record.MutateLastActions(SimualtionFrameId);
-            if (Math.Abs(SimualtionFrameId - _previousFrameId) < 100)
+            if (Math.Abs(SimualtionFrameId - _previousFrameId) < _minimumFrameDistanceToForceMutation)
                 Record.Mutate(0.2);
             _previousFrameId = SimualtionFrameId;
             if (WinnersTable.WinnersData.Any())
