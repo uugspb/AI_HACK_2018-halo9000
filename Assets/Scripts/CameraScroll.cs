@@ -22,7 +22,7 @@ public class CameraScroll : MonoBehaviour {
 	    if (Input.GetMouseButtonDown(0))
         {
             startPos = cam.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector3(Mathf.Lerp(transform.position.x, targetPos.x, speed * Time.deltaTime), Mathf.Lerp(transform.position.y, targetPos.y, speed * Time.deltaTime), transform.position.z);
+            //transform.position = new Vector3(Mathf.Lerp(transform.position.x, targetPos.x, speed * Time.deltaTime), Mathf.Lerp(transform.position.y, targetPos.y, speed * Time.deltaTime), transform.position.z);
         }
         else if (Input.GetMouseButton(0))
         {
